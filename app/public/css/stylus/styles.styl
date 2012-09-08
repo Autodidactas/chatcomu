@@ -1,0 +1,260 @@
+// imports
+@import '../libs/reset'
+//@import 'libs/icons-bootstrap' // iconos de bootstrap by @twitter
+@import 'nib/gradients'
+@import 'nib/positions'
+@import 'nib/vendor'
+@import 'classes'
+@import 'emoticons.styl'
+//@import 'libs/forms'
+//@import 'libs/datepicker' // Estilos editables para el datepicker de jquery UI
+//@import 'libs/animations' // archivos de animaciones
+
+// body
+body
+    font 200 100% "Helvetica Neue", Helvetica, Arial, sans-serif
+    line-height 18px
+
+// Links
+a
+    color #75aed7
+    text-decoration none
+
+    &:hover
+        color #75aed7 * 0.7
+
+#conectados
+    font-size 0.9em
+    margin-top 7px
+    padding 0 10px
+
+    strong
+        background-color #468847
+        border-radius(50%)
+        color #fff
+        font-weight 700
+        padding 3px 5px
+        text-shadow 0 -1px 0 rgba(0, 0, 0, 0.25)
+
+.tip
+    font-size 0.9em
+    margin-left -84px
+    absolute top 10px left 50%
+
+#login
+
+    a
+        border 1px solid
+        color white
+        cursor pointer
+        display(block)
+        font-size 1em
+        padding 15px 10px
+        text-align center
+        transition()
+
+    #twitter
+        background-color #00aced
+        border-color #00afd8
+
+        strong
+            position relative
+
+            &:after
+                content url($ipa login-twitter.png)
+                relative top 4px left 8px
+
+        &:hover
+            box-shadow(inset 0 0 10px #eee)
+
+#nav
+    absolute right 10px top 6px
+
+    strong
+        color #bf8a7d
+        line-height 27px
+
+    button
+        cursor pointer
+        margin 0
+        margin-left 10px
+        padding 4px 8px
+
+#texto
+    position relative
+
+#chat_form
+    margin-top 5px
+    padding 10px
+
+    input[type=text]
+        display(block)
+        border-color #ddd transparent #ddd #ddd
+        border-radius(4px)
+        border-style solid
+        border-width 1px
+        box-sizing()
+        height 50px
+        margin 0
+        padding 4px 90px 30px 4px
+        width 100%
+
+    #publicar
+        background-color #5e5e5e
+        border-radius(0 0 0 4px)
+        color #fff
+        font-size 0.8em
+        padding 3px 10px
+        absolute bottom 0 left 0
+
+        input[type=checkbox]
+            margin 0
+            relative top 3px left 3px
+
+    input[type=submit]
+        background-color #5e5e5e
+        border none
+        border-radius(0 4px 4px 0)
+        color #fff
+        cursor pointer
+        font-weight 700
+        height 100%
+        margin 0
+        padding 0 20px
+        absolute bottom 0px right 0px
+        transition(background-color 0.175s)
+
+        &:hover
+            background-color (#5e5e5e / 0.8)
+
+#mensajes
+    &::-webkit-scrollbar
+        width 6px
+    &::-webkit-scrollbar-track
+        background-color #bbb
+    &::-webkit-scrollbar-thumb
+        background-color #888
+    &::-webkit-scrollbar-thumb:hover
+        background-color #777
+    &::-webkit-scrollbar-thumb:active
+        background-color #555
+
+#mensajes
+    overflow-y scroll
+    absolute top 100px bottom 0
+    width 100%
+
+    .gecko &
+        top 110px
+
+    li
+        background-color #3d4043
+        border-left 4px solid transparent
+        color #fff
+        display(block)
+        padding 10px 0
+        position relative
+        overflow hidden
+        word-wrap break-word
+
+        &.yo
+            background-color #2e3032
+
+        &.staff
+
+            &:before
+                content url($ipa star.png)
+                absolute top 12px right 10px
+
+            & .location
+                right 30px
+
+        &:hover
+
+            time
+            .location
+                opacity(1)
+
+    .nuevo_usuario
+        padding 10px
+
+        a
+            color #bf8a7d
+            font-weight 700
+
+    .avatar
+        height 32px
+        float left
+        margin 0 10px
+        width 31px
+
+        img
+            border-radius(4px)
+
+    .texto
+        margin-left 50px
+
+        .username
+            font-weight 700
+
+        time
+            font-size 0.8em
+            opacity(0)
+            transition()
+
+        .location
+            font-size 0.8em
+            absolute top 11px right 10px
+
+        p
+            font-size 0.9em
+
+@media all and (max-width: 480px)
+
+    #login
+        margin-top 20px
+
+    .tip
+    time
+        display(none)
+
+    #nav
+        margin-top 5px
+        overflow hidden
+        relative top 0 right 0
+        text-align center
+
+        strong
+            display(none)
+
+        button
+            box-sizing()
+            border-radius(0)
+            border-left none
+            border-right none
+            float left
+            margin 0
+            padding 10px 0
+            width 50%
+
+    #chat_form
+        margin-top 0
+        padding 7px 10px
+
+    #mensajes
+        top 133px
+
+        .gecko &
+            top 140px
+
+// @media all and (max-width: 320px)
+
+@media all and (max-width: 240px)
+
+    #nav
+
+        button
+            font-size 0.8em
+
+    #mensajes
+        top 140px

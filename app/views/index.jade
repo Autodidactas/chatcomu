@@ -1,0 +1,38 @@
+extends layout
+
+block content
+
+    #content
+        p#conectados Usuarios conectados: <strong></strong>
+
+        #sonido
+            audio(id='audio')
+                source(src='sounds/sonido.mp3', type='audio/mpeg; codecs="mp3"')
+
+        - if (!user)
+            #login
+                a(href='/auth/twitter', title='Conectar con twitter', id='twitter') Conectar con <strong>twitter</strong>
+
+        - else
+            - if (!user.twitter.location)
+                p.tip
+                    strong Tip: 
+                    a(href='https://twitter.com/settings/profile#user_location', title='Actualizar locación', target='_blank') Actualiza tu locación desde twitter
+
+            #nav
+                strong= '@' + user.twitter.username
+                button#btn-sonido.button.generic Desactivar tonos
+                button#salir.button.blue Salir
+
+            form#chat_form
+                #texto
+                    input(type='text', name='mensaje', placeholder='Tu mensaje', autofocus)
+                    label#publicar Publicar en twitter
+                        input(type="checkbox", name="publicar", checked)
+                    input(type='submit', value='Enviar')
+
+        ul#mensajes
+
+    - if (user)
+        script
+            window.user = {name: '!{user.twitter.username}',color: '#!{user.twitter.color}'}

@@ -1,0 +1,31 @@
+{
+  "name": "chatcomu",
+  "description": "Chat de la comunidad informatica.",
+  "version": "0.0.1",
+  "private": false,
+  "homepage": "http://chatcomu-hosmelq.dotcloud.com/",
+  "repository": {
+    "url": "defaultapp"
+  },
+  "author" : {
+    "name" : "Hosmel Quintana",
+    "email" : "hosmelq@gmail.com",
+    "twitter" : "@hosmelQ"
+  },
+  "engines": {
+    "node": "0.8.x"
+  },
+  "main": "server.js",
+  "dependencies": {
+    "express": "3.0.0rc2",
+    "jade": "*",
+    "stylus": "*",
+    "nib": "*",
+    "socket.io": "0.9",
+    "redis": "*",
+    "mongoose": "3.0.3",
+    "ntwitter": "*",
+    "passport": "0.1.12",
+    "passport-twitter": "0.1.4"
+  }
+}
