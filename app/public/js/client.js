@@ -67,11 +67,7 @@ $('#salir').on('click', function () {
         },
 
         success: function () {
-            $('#chat_form').before('\
-                <div id="login">\
-                    <a href="/auth/twitter" title="Conectar con twitter" id="twitter"> Conectar con <strong>twitter</strong></a>\
-                </div>\
-            ').remove()
+            $('#chat_form').before('<div id="login"><a href="/auth/twitter" title="Conectar con twitter" id="twitter"> Conectar con <strong>twitter</strong></a></div>').remove()
             $('.tip, #nav').remove()
         }
     })
@@ -80,6 +76,7 @@ $('#salir').on('click', function () {
 // eventos io
 
 socket.on('connect', function () {
+    $('#chat_form input:text').attr('disabled', false).focus()
     if (typeof user != 'undefined') socket.emit('nuevo usuario', user.name)
 })
 
@@ -98,6 +95,38 @@ socket.on('total conectados', function (total) {
 socket.on('disconnect', function (total) {
     window.location.reload()
 })
+
+// acciones
+
+$('body').on('click', '.action-options', function (e) {
+    e.stopPropagation()
+    var tweet = $(this).parent().find('.texto p').text()
+    var username = $(this).parent().find('.username').text()
+    actions.init(tweet, username)
+
+    $(this).append('<div class="dropdown-menu" style="display:block;"><ul><li class="retweet">Retweet</li><li class="tweetuser">Tweet a ' + username + '</li><!--<li class="reportuser">Reportar ' + username + ' de spam</li>--></ul></div>').addClass('visible')
+})
+
+$('html').on('click', function () {
+    actions.remove()
+})
+
+$('body').on('click', '.dropdown-menu li', function (e) {
+    actions.remove()
+    e.stopPropagation()
+})
+
+$('body').on('click', '.retweet', function (e) {
+    actions.retweet()
+})
+
+$('body').on('click', '.tweetuser', function (e) {
+    actions.tweetuser()
+})
+
+// $('body').on('click', '.reportuser', function (e) {
+//     actions.init(tweet, username)
+// })
 
 // funciones
 
@@ -148,22 +177,40 @@ var mensaje = {
         // emoticones
         mensaje = mensaje.replace(/[^a-z](:\)|:\(|:p|:D|:o|;\)|8\)|B\||>:\(|:\/|:'\(|3:\)|o:\)|:\*|<3|\^_\^|-_-|o.O|>.<|:v|:3|\(Y\))/gi, '<span title="$1" class="emoticon"></span>')
 
-        $('#mensajes').prepend('\
-            <li class="mensaje' + clases + '"' + style + '>\
-                <div class="avatar">\
-                    <a href="http://twitter.com/' + data.usuario + '" title="@' + data.usuario + '" target="_blank"><img src="https://api.twitter.com/1/users/profile_image?screen_name=' + data.usuario + '&size=normal" alt="@' + data.usuario + '" height="32" width="32"></a>\
-                </div>\
-                <div class="texto">\
-                    <a href="http://twitter.com/' + data.usuario + '" title="@' + data.usuario + '" target="_blank" class="username">@' + data.usuario + '</a>\
-                    <time datetime="' + fecha.toISOString() + '">' + fecha.toString('HH:mm') + '</time>\
-                    <span class="location">' + data.location + '</span>\
-                    <p>' + mensaje + '</p>\
-                </div>\
-            </li>\
-        ')
+        $('#mensajes').prepend('<li class="mensaje' + clases + '"' + style + '><div class="avatar"><a href="http://twitter.com/' + data.usuario + '" title="@' + data.usuario + '" target="_blank"><img src="https://api.twitter.com/1/users/profile_image?screen_name=' + data.usuario + '&size=normal" alt="@' + data.usuario + '" height="32" width="32"></a></div><div class="texto"><a href="http://twitter.com/' + data.usuario + '" title="@' + data.usuario + '" target="_blank" class="username">@' + data.usuario + '</a><time datetime="' + fecha.toISOString() + '">' + fecha.toString('HH:mm') + '</time><span class="location">' + data.location + '</span><p>' + mensaje + '</p></div><div class="action-options">•••</div></li>')
 
         $('time').timeago()
 
         if (localStorage.sound === 'true' || $.cookie('sound') === 'true') audio.play()
+    }
+}
+
+var actions = {
+    tweet: '',
+    username: '',
+
+    init: function (tweet, username) {
+        this.tweet = tweet
+        this.username = username
+    },
+
+    retweet: function () {
+        var tweet = 'RT ' + this.username + ': ' + this.tweet + ' '
+        $('#chat_form input:text').val(tweet).focus()
+    },
+
+    tweetuser: function () {
+        $('#chat_form input:text').val(this.username + ' ').focus()
+    },
+
+    reportuser: function () {
+        $('#chat_form input:text').val(this.username)
+    },
+
+    remove: function () {
+        if ($('.action-options').hasClass('visible')) {
+            $('.action-options').removeClass('visible')
+            $('.dropdown-menu').remove()
+        }
     }
 }

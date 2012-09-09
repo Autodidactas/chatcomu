@@ -91,20 +91,26 @@ a:hover{color:#527a97}
 #mensajes::-webkit-scrollbar-thumb:active{background-color:#555}
 #mensajes{overflow-y:scroll;position:absolute;top:100px;bottom:0;width:100%;}
 .gecko #mensajes{top:110px}
-#mensajes li{background-color:#3d4043;border-left:4px solid transparent;color:#fff;display:block;padding:10px 0;position:relative;overflow:hidden;word-wrap:break-word;}
+#mensajes li{color:#fff;display:block;padding:10px 0;position:relative;word-wrap:break-word;}
+#mensajes li.mensaje{background-color:#3d4043;border-left:4px solid transparent}
 #mensajes li.yo{background-color:#2e3032}
 #mensajes li.staff:before{content:url("../images/star.png");position:absolute;top:12px;right:10px}
 #mensajes li.staff .location{right:30px}
-#mensajes li:hover time,#mensajes li:hover .location{opacity:1;-ms-filter:none;filter:none}
-#mensajes .nuevo_usuario{padding:10px;}
-#mensajes .nuevo_usuario a{color:#bf8a7d;font-weight:700}
+#mensajes li:hover time,#mensajes li:hover .location,#mensajes li:hover .action-options{opacity:1;-ms-filter:none;filter:none}
 #mensajes .avatar{height:32px;float:left;margin:0 10px;width:31px;}
 #mensajes .avatar img{-moz-border-radius:4px;-ms-border-radius:4px;-o-border-radius:4px;-webkit-border-radius:4px;border-radius:4px}
 #mensajes .texto{margin-left:50px;}
 #mensajes .texto .username{font-weight:700}
-#mensajes .texto time{font-size:.8em;opacity:0;-ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=0);filter:alpha(opacity=0);-moz-transition:all .175s linear;-ms-transition:all .175s linear;-o-transition:all .175s linear;-webkit-transition:all .175s linear;transition:all .175s linear}
+#mensajes .texto time{font-size:.8em;margin-left:5px;opacity:0;-ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=0);filter:alpha(opacity=0);-moz-transition:all .175s linear;-ms-transition:all .175s linear;-o-transition:all .175s linear;-webkit-transition:all .175s linear;transition:all .175s linear}
 #mensajes .texto .location{font-size:.8em;position:absolute;top:11px;right:10px}
-#mensajes .texto p{font-size:.9em}
+#mensajes .texto p{font-size:.9em;padding-right:30px}
+#mensajes .action-options{color:#999;cursor:pointer;opacity:0;-ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=0);filter:alpha(opacity=0);-moz-transition:all .175s linear;-ms-transition:all .175s linear;-o-transition:all .175s linear;-webkit-transition:all .175s linear;transition:all .175s linear;position:absolute;bottom:7px;right:9px;}
+#mensajes .action-options.visible{color:#fff;opacity:1;-ms-filter:none;filter:none}
+#mensajes .action-options:hover{color:#fff}
+#mensajes .dropdown-menu{background-color:#fff;border:1px solid #ddd;-moz-border-radius:3px;-ms-border-radius:3px;-o-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box;margin-right:-14px;position:absolute;top:20px;right:50%;z-index:1;}
+#mensajes .dropdown-menu:before{border-color:transparent transparent #fff transparent;border-style:solid;border-width:8px;content:'';position:absolute;top:-15px;right:5px}
+#mensajes .dropdown-menu li{border-button:1px solid #ddd;color:#333;font-size:.8em;padding:5px;white-space:nowrap;}
+#mensajes .dropdown-menu li:hover{background-color:#f7f7f7}
 @media all and (max-width: 480px){#login{margin-top:20px}
 .tip,time{display:none}
 #nav{margin-top:5px;overflow:hidden;position:relative;top:0;right:0;text-align:center;}

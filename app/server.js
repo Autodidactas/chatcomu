@@ -203,15 +203,15 @@ io.sockets.on('connection', function (client) {
 
                     if (publicar) {
                         var hashtag = ' ' + config.twitter.hashtag
+                        var _length = 140 - hashtag.length
+                        var tweet = mensaje.substr(0, _length) + hashtag
                         var callback = function () {}
-                        var tweet = mensaje.substr(0, 128) + hashtag
 
                         var twit = new ntwitter({
                             consumer_key: config.twitter.consumerKey,
                             consumer_secret: config.twitter.consumerSecret,
                             access_token_key: user.twitter.token,
                             access_token_secret: user.twitter.token_secret
-
                         })
                         twit.verifyCredentials(callback)
                         .updateStatus(tweet, callback)
@@ -223,14 +223,13 @@ io.sockets.on('connection', function (client) {
     })
 
     client.on('disconnect', function () {
-        client.get('username', function (err, nombre) {
+        conectados--
+        totalConectados()
+        /*client.get('username', function (err, nombre) {
             if (nombre !== null) {
-                // redisClient.srem('conectados', nombre)
-
-                conectados--
-                totalConectados()
+                redisClient.srem('conectados', nombre)
             }
-        })
+        })*/
     })
 
     // funciones
