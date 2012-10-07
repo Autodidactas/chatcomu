@@ -27,7 +27,7 @@ window.userlogin = function (user) {
 
 // login
 
-$('#login a').live('click', function (e) { 
+$('#login button').live('click', function (e) { 
     e.preventDefault()
     window.open('/auth/' + $(this).attr('id'))
 })
@@ -52,7 +52,21 @@ $('#btn-sonido').on('click', function () {
 
 $('#chat_form').on('submit', function (e) {
     e.preventDefault()
-    mensaje.enviar()
+    var input = $(this).find('input:text')
+    var texto = input.val()
+    var publicar = $(this).find('input:checkbox').is(':checked')
+    input.val('')
+
+    if (!texto.match(/^\s*$/)) {
+        var data = {
+            texto: texto,
+            datetime: new Date().getTime(),
+            publicar: publicar,
+            user: user
+        }
+
+        socket.emit('mensaje', data)
+    }
 })
 
 // salir del chat
@@ -67,7 +81,7 @@ $('#salir').on('click', function () {
         },
 
         success: function () {
-            $('#chat_form').before('<div id="login"><a href="/auth/twitter" title="Conectar con twitter" id="twitter"> Conectar con <strong>twitter</strong></a></div>').remove()
+            $('#chat_form').before('<div id="login"><button title="Conectar con twitter" id="twitter"><strong>twitter</strong></button><button title="Conectar con facebook" id="facebook"><strong>facebook</strong></button></div>').remove()
             $('.tip, #nav').remove()
         }
     })
@@ -77,22 +91,19 @@ $('#salir').on('click', function () {
 
 socket.on('connect', function () {
     $('#chat_form input:text').attr('disabled', false).focus()
-    if (typeof user != 'undefined') socket.emit('nuevo usuario', user.name)
 })
 
 socket.on('mensaje', function (data) {
-    mensaje.insertar(data)
+    render(data)
 })
 
-socket.on('mensajes anteriores', function (data) {
-    mensaje.insertar(data)
-})
+socket.on('mensajes anteriores', render)
 
 socket.on('total conectados', function (total) {
     $('#conectados strong').text(total)
 })
 
-socket.on('disconnect', function (total) {
+socket.on('disconnect', function () {
     window.location.reload()
 })
 
@@ -130,59 +141,39 @@ $('body').on('click', '.tweetuser', function (e) {
 
 // funciones
 
-var mensaje = {
+function render (data) {
+    var style = ''
+    var clases = ''
+    var mensaje = data.texto
+    var fecha = new Date(data.datetime)
+    var audio = document.getElementById('audio')
 
-    vacio: function (text) {
-        var blank = /^\s*$/
-        return (text.match(blank) !== null)
-    },
-
-    limpiar: function(mensaje) {
-        return mensaje.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
-    },
-
-    enviar: function () {
-        var mensaje = $('#chat_form input:text')
-        var publicar = $('#chat_form input:checkbox').is(':checked')
-
-        if (!this.vacio(mensaje.val())) socket.emit('mensaje', this.limpiar(mensaje.val()), publicar)
-        mensaje.val('').focus()
-    },
-
-    insertar: function (data) {
-        var style = ''
-        var clases = ''
-        var mensaje = data.mensaje
-        var fecha = new Date(data.timestamp)
-        var audio = document.getElementById('audio')
-
-        if (typeof user != 'undefined') {
-            if (user.name === data.usuario) {
-                clases += ' yo'
-                style = 'style="border-left-color:' + user.color + '"'
-            }
+    if (typeof user != 'undefined') {
+        if (user.name === data.user.name) {
+            clases += ' yo'
+            style = data.user.provider === 'twitter' ? 'style="border-left-color:#00aced"' : 'style="border-left-color:#3b5998"'
         }
-
-        if (data.usuario.match(/lenincasco|Belkymf|YutaruHD|felixricarb|Geimsz|hosmelQ/i)) clases += ' staff'
-
-        // urls
-        mensaje = mensaje.replace(/(https?:\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:\/~\+#]*[\w\-\@?^=%&\/~\+#])?)/g, '<a href="$1" title="$1" target="_blank">$1</a>')
-
-        // mensiones
-        mensaje = mensaje.replace(/\B@([\w-_]+)/ig, '<a href="http://twitter.com/$1" title="@$1 en twitter" target="_blank">@$1</a>')
-
-        // hashtag
-        mensaje = mensaje.replace(/\B#([\w-_]+)/ig, '<a href="https://twitter.com/search/%23$1" title="#$1" target="_blank">#$1</a>')
-
-        // emoticones
-        mensaje = mensaje.replace(/[^a-z](:\)|:\(|:p|:D|:o|;\)|8\)|B\||>:\(|:\/|:'\(|3:\)|o:\)|:\*|<3|\^_\^|-_-|o.O|>.<|:v|:3|\(Y\))/gi, '<span title="$1" class="emoticon"></span>')
-
-        $('#mensajes').prepend('<li class="mensaje' + clases + '"' + style + '><div class="avatar"><a href="http://twitter.com/' + data.usuario + '" title="@' + data.usuario + '" target="_blank"><img src="https://api.twitter.com/1/users/profile_image?screen_name=' + data.usuario + '&size=normal" alt="@' + data.usuario + '" height="32" width="32"></a></div><div class="texto"><a href="http://twitter.com/' + data.usuario + '" title="@' + data.usuario + '" target="_blank" class="username">@' + data.usuario + '</a><time datetime="' + fecha.toISOString() + '">' + fecha.toString('HH:mm') + '</time><span class="location">' + data.location + '</span><p>' + mensaje + '</p></div><div class="action-options">•••</div></li>')
-
-        $('time').timeago()
-
-        if (localStorage.sound === 'true' || $.cookie('sound') === 'true') audio.play()
     }
+
+    if (data.user.name.match(/lenincasco|sacrac1|Belkymf|samuelb1311|YutaruHD|felixricarb|Geimsz|hosmelQ/i)) clases += ' staff'
+
+    // urls
+    mensaje = mensaje.replace(/(https?:\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:\/~\+#]*[\w\-\@?^=%&\/~\+#])?)/g, '<a href="$1" title="$1" target="_blank">$1</a>')
+
+    // mensiones
+    mensaje = mensaje.replace(/\B@([\w-_]+)/ig, '<a href="http://twitter.com/$1" title="@$1 en twitter" target="_blank">@$1</a>')
+
+    // hashtag
+    mensaje = mensaje.replace(/\B#([\w-_]+)/ig, '<a href="https://twitter.com/search/%23$1" title="#$1" target="_blank">#$1</a>')
+
+    // emoticones
+    mensaje = mensaje.replace(/[^a-z](:\)|:\(|:p|:D|:o|;\)|8\)|B\||>:\(|:\/|:'\(|3:\)|o:\)|:\*|<3|\^_\^|-_-|o.O|>.<|:v|:3|\(Y\))/gi, '<span title="$1" class="emoticon"></span>')
+
+    $('#mensajes').prepend('<li class="mensaje' + clases + '"' + style + '><div class="avatar"><a href="' + data.user.link + '" title="' + data.user.name + '" target="_blank"><img src="' + data.user.avatar.toLowerCase() + '" alt="' + data.user.name + '" height="32" width="32"></a></div><div class="texto"><a href="' + data.user.link + '" title="' + data.user.name + '" target="_blank" class="username">' + data.user.name + '</a><time datetime="' + fecha.toISOString() + '">' + fecha.toString('HH:mm') + '</time><span class="location">' + data.location + '</span><p>' + mensaje + '</p></div><div class="action-options">•••</div></li>')
+
+    $('time').timeago()
+
+    if (localStorage.sound === 'true' || $.cookie('sound') === 'true') audio.play()
 }
 
 var actions = {
@@ -195,7 +186,7 @@ var actions = {
     },
 
     retweet: function () {
-        var tweet = 'RT ' + this.username + ': ' + this.tweet + ' '
+        var tweet = 'RT @' + this.username + ': ' + this.tweet + ' '
         $('#chat_form input:text').val(tweet).focus()
     },
 

@@ -42,37 +42,37 @@ a
     absolute top 10px left 50%
 
 #login
+    overflow hidden
 
-    a
+    button
         border 1px solid
+        box-sizing()
         color white
         cursor pointer
         display(block)
+        float left
         font-size 1em
         padding 15px 10px
         text-align center
         transition()
+        width 50%
 
     #twitter
-        background-color #00aced
-        border-color #00afd8
-
-        strong
-            position relative
-
-            &:after
-                content url($ipa login-twitter.png)
-                relative top 4px left 8px
+    #facebook
 
         &:hover
             box-shadow(inset 0 0 10px #eee)
 
+    #twitter
+        background-color #00aced
+        border-color #00aced
+
+    #facebook
+        background-color #3b5998
+        border-color #3b5998
+
 #nav
     absolute right 10px top 6px
-
-    strong
-        color #bf8a7d
-        line-height 27px
 
     button
         cursor pointer

@@ -2,5 +2,5 @@ extends layout
 
 block content
     script
-        window.opener.userlogin({name:'!{user.twitter.username}',color:'#!{user.twitter.color}'});
+        window.opener.userlogin({name:"#{user.username}"});
         window.close();

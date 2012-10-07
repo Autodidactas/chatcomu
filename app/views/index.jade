@@ -3,6 +3,7 @@ extends layout
 block content
 
     #content
+
         p#conectados Usuarios conectados: <strong></strong>
 
         #sonido
@@ -10,29 +11,32 @@ block content
                 source(src='sounds/sonido.mp3', type='audio/mpeg; codecs="mp3"')
 
         - if (!user)
+
             #login
-                a(href='/auth/twitter', title='Conectar con twitter', id='twitter') Conectar con <strong>twitter</strong>
+                button(title='Conectar con twitter', id='twitter') 
+                    strong twitter
+                button(title='Conectar con facebook', id='facebook')
+                    strong facebook
 
         - else
-            - if (!user.twitter.location)
-                p.tip
-                    strong Tip: 
-                    a(href='https://twitter.com/settings/profile#user_location', title='Actualizar locación', target='_blank') Actualiza tu locación desde twitter
 
             #nav
-                strong= '@' + user.twitter.username
                 button#btn-sonido.button.generic Desactivar tonos
                 button#salir.button.blue Salir
 
             form#chat_form
                 #texto
                     input(type='text', name='mensaje', placeholder='Tu mensaje', disabled)
-                    label#publicar Publicar en twitter
+                    label#publicar Publicar en #{user.provider}
                         input(type="checkbox", name="publicar", checked)
                     input(type='submit', value='Enviar')
 
         ul#mensajes
 
     - if (user)
-        script
-            window.user = {name: '!{user.twitter.username}',color: '#!{user.twitter.color}'}
+        - if (user.provider === 'twitter')
+            script
+                window.user = {name:"#{user.username}",avatar:"https://api.twitter.com/1/users/profile_image?screen_name=#{user.username}&size=normal",link:"http://www.twitter.com/#{user.username}",provider:"#{user.provider}"};
+        - else if (user.provider === 'facebook')
+            script
+                window.user = {name:"#{user.username}",avatar:"https://graph.facebook.com/#{user.username}/picture",link:"http://www.facebook.com/#{user.username}",provider:"#{user.provider}"};
