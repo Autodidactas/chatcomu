@@ -166,7 +166,5 @@ io.sockets.on 'connection', (client) ->
 
     # funciones
 
-    totalConectados = ->
+    do totalConectados = ->
         return io.sockets.emit 'total conectados', conectados
-
-    totalConectados()
