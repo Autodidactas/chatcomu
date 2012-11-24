@@ -11,7 +11,7 @@ stylus = require 'stylus'
 server = http.createServer app
 ntwitter = require 'ntwitter'
 fb = require 'fb'
-io = require('socket.io').listen server, { log: false }
+io = require('socket.io').listen server, log: false
 
 # underscore
 _ = underscore = require 'underscore'
@@ -20,7 +20,7 @@ _.mixin _.str.exports()
 
 # chat library
 routes = require './routes'
-config = require './config.json'
+config = require './configl.json'
 
 # mongoose
 mongoose = require 'mongoose'
@@ -67,7 +67,7 @@ app.configure ->
     app.use stylus.middleware
         src: __dirname + '/public',
         compile: (str, path) ->
-            return stylus(str).set('filename', path).set('compress', true).use(nib())
+            return stylus(str).set('filename', path).set('compress', true).use nib()
     app.use express.static path.join(__dirname, 'public')
 
 app.configure 'development', ->
@@ -125,12 +125,13 @@ io.sockets.on 'connection', (client) ->
 
     client.on 'mensaje', (data) ->
         model.user.findOne 'username': data.user.name, (err, user) ->
-            console.log data.user.name + ' mensaje vacio'.yellow if data.texto is ''
+
             if user and not _.isBlank data.texto
                 data.texto = _.escapeHTML data.texto
                 data.location = user.location
 
                 if data.publicar
+
                     if data.user.provider is 'twitter'
                         hashtag = ' ' + config.twitter.hashtag
                         _length = 140 - hashtag.length
@@ -150,6 +151,7 @@ io.sockets.on 'connection', (client) ->
 
                         fb.setAccessToken user.facebook.token_secret
                         fb.api 'me/feed', 'post', message: mensaje, (res) ->
+
                             if !res || res.error
                                 console.log !res ? 'error occurred' : res.error
                                 return
