@@ -48,7 +48,7 @@ passport.use new passport_facebook config.facebook, (token, tokenSecret, profile
     model.user.facebook token, tokenSecret, profile, next
 
 app.configure ->
-    app.set 'port', process.env.WWW_PORT || 8080
+    app.set 'port', process.env.WWW_PORT || 8888
     app.set 'views', __dirname + '/views'
     app.set 'view engine', 'jade'
     app.use express.logger()

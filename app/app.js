@@ -69,7 +69,7 @@
   }));
 
   app.configure(function() {
-    app.set('port', process.env.WWW_PORT || 8080);
+    app.set('port', process.env.WWW_PORT || 8888);
     app.set('views', __dirname + '/views');
     app.set('view engine', 'jade');
     app.use(express.logger());
