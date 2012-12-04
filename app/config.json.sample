@@ -4,16 +4,16 @@
 	},
 
 	"info": {
-		"name": "Cahtcomu",
+		"name": "Chatcomu",
 		"description": "Chat de la comunidad informatica."
 	},
 
 	"mongodb": {
-		"db": "chatusers",
+		"db": "chatcomu",
 		"host": "localhost",
 		"password": null,
 		"port": null,
-		"url": "mongodb://localhost/chatusers",
+		"url": "mongodb://localhost/chatcomu",
 		"user": null
 	},
 
@@ -22,21 +22,21 @@
 		"host": "localhost",
 		"password": null,
 		"port": null,
-		"url": "redis://localhost/mensajes",
+		"url": "redis://localhost",
 		"user": null
 	},
 
 	"twitter": {
+		"consumerKey": "XXXXXXXX",
+		"consumerSecret": "XXXXXXXX",
 		"callbackURL": "http://localhost:8080/auth/twitter/callback",
-		"consumerKey": "",
-		"consumerSecret": "",
-		"hashtag": "#hashtag",
+		"hashtag": "#Autodidactas",
 		"username": "@username"
 	},
 
 	"facebook": {
-		"clientID": "",
-		"clientSecret": "",
+		"clientID": "XXXXXXXX",
+		"clientSecret": "XXXXXXXX",
 		"callbackURL": "http://localhost:8080/auth/facebook/callback",
 		"permissions": "status_update"
 	}
