@@ -115,6 +115,7 @@ io.sockets.on 'connection', (client) ->
     # enviar los mensajes al cliente al entrar al sitio
     redisClient.lrange 'mensajes', 0, -1, (err, mensajes) ->
         try
+            mensajes = mensajes.reverse()
             _.each mensajes, (mensaje) ->
                 mensaje = JSON.parse mensaje
                 client.emit 'mensajes anteriores', mensaje
@@ -124,8 +125,9 @@ io.sockets.on 'connection', (client) ->
             console.log '-------------------------- end error --------------------------'.red
 
     client.on 'mensaje', (data) ->
+
         model.user.findOne 'username': data.user.name, (err, user) ->
-            console.log data.user.name + ' mensaje vacio'.yellow if data.texto is ''
+
             if user and not _.isBlank data.texto
                 data.texto = _.escapeHTML data.texto
                 data.location = user.location
@@ -156,13 +158,25 @@ io.sockets.on 'connection', (client) ->
 
                 io.sockets.emit 'mensaje', data
                 data = JSON.stringify data
-                redisClient.rpush 'mensajes', data, (err, response) ->
+                redisClient.lpush 'mensajes', data, (err, response) ->
                     # mantener solo los ultimos 100 mensajes de la lista
                     redisClient.ltrim 'mensajes', 0, 49
 
     client.on 'disconnect', ->
         conectados--
         totalConectados()
+
+    client.on 'bannear', (data, staff) ->
+        model.user.findOne 'username': data, (err, doc) ->
+            return next err if err
+
+            if doc
+                doc.banned = true
+
+                doc.save (err) ->
+                    return throw err if err
+                    io.sockets.emit 'bye', data
+                    console.log data.red + ' ha sido banneado :/ por '.blue + staff.yellow
 
     # funciones
 

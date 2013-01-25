@@ -1,0 +1,36 @@
+{
+	"domains": {
+		"localhost": "app"
+	},
+
+	"info": {
+		"name": "Cahtcomu",
+		"description": "Chat de la comunidad informatica."
+	},
+
+	"mongodb": {
+		"db": "chatusers",
+		"host": "localhost",
+		"password": null,
+		"port": null,
+		"url": "mongodb://localhost/chatusers",
+		"user": null
+	},
+
+	"redis": {
+		"db": "mensajes",
+		"host": "localhost",
+		"password": null,
+		"port": null,
+		"url": "redis://localhost/mensajes",
+		"user": null
+	},
+
+	"twitter": {
+		"callbackURL": "http://localhost:3000/auth/twitter/callback",
+		"consumerKey": "",
+		"consumerSecret": "",
+		"hashtag": "#hashtag",
+		"username": "@username"
+	}
+}

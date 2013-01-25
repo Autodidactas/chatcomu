@@ -34,9 +34,14 @@ block content
         ul#mensajes
 
     - if (user)
+        - if (user.staff)
+            script
+                Modernizr.load({load:'js/staff.js'})
+
         - if (user.provider === 'twitter')
             script
                 window.user = {name:"#{user.username}",avatar:"https://api.twitter.com/1/users/profile_image?screen_name=#{user.username}&size=normal",link:"http://www.twitter.com/#{user.username}",provider:"#{user.provider}"};
+
         - else if (user.provider === 'facebook')
             script
                 window.user = {name:"#{user.username}",avatar:"https://graph.facebook.com/#{user.username}/picture",link:"http://www.facebook.com/#{user.username}",provider:"#{user.provider}"};

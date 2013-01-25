@@ -27,17 +27,17 @@
 	},
 
 	"twitter": {
-		"consumerKey": "XXXXXXXX",
-		"consumerSecret": "XXXXXXXX",
-		"callbackURL": "http://localhost:8080/auth/twitter/callback",
+		"consumerKey": "FIbYJ42RC145shhQSLVVw",
+		"consumerSecret": "O1sDgqRxyQr9P5PmjQBkJffLlfWWYgg9frfISoCpWoc",
+		"callbackURL": "http://hosmelquintana.com:8080/auth/twitter/callback",
 		"hashtag": "#Autodidactas",
 		"username": "@username"
 	},
 
 	"facebook": {
-		"clientID": "XXXXXXXX",
-		"clientSecret": "XXXXXXXX",
-		"callbackURL": "http://localhost:8080/auth/facebook/callback",
+		"clientID": "420963247965924",
+		"clientSecret": "d91f70c196993293e4b9e38594d2443a",
+		"callbackURL": "http://hosmelquintana.com:8080/auth/facebook/callback",
 		"permissions": "status_update"
 	}
 }

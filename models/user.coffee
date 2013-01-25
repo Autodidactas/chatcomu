@@ -1,20 +1,37 @@
 mongoose = require 'mongoose'
 Schema = mongoose.Schema
 
+staff = [
+    'lenincasco'
+    'sacrac1'
+    'Belkymf'
+    'samuelb1311'
+    'YutaruHD'
+    'felixricarb'
+    'Geimsz'
+    'hosmelQ'
+]
+
 user = new Schema
     username: String
     location: String
     provider: String
+    staff: Boolean
+
     twitter:
         id: Number
         token: String
         token_secret: String
+
     facebook:
         id: Number
         token_secret: String
+
     created_at:
         type: Date
         default: Date.now
+
+    banned: Boolean
 
 user.statics.serialize = (user, next) ->
     next null, user._id
@@ -31,8 +48,12 @@ user.statics.twitter = (token, tokenSecret, profile, next) ->
         # return next null, doc if doc && doc.twitter && doc.twitter.token && doc.twitter.token_secret
 
         if doc
+            
+            next null, false if doc.banned
+            
             doc.username = profile.username
             doc.location = profile._json.location
+            doc.staff = if profile.username in staff then true else false
 
             doc.save (err) ->
                 return throw err if err
@@ -46,6 +67,7 @@ user.statics.twitter = (token, tokenSecret, profile, next) ->
             u.username = u.username = profile.username
             u.location = profile._json.location
             u.provider = profile.provider
+            u.staff = if profile.username in staff then true else false
 
             u.save (err) ->
                 return throw err if err
@@ -59,6 +81,9 @@ user.statics.facebook = (token, tokenSecret, profile, next) ->
         # return next null, doc unless err || doc == null
 
         if doc
+            
+            next null, false if doc.banned
+
             doc.facebook.username = profile.username
             doc.location = location
 

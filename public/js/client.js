@@ -97,6 +97,10 @@ socket.on('mensaje', function (data) {
     render(data)
 })
 
+socket.on('bye', function (data) {
+    if (user.name === data) window.location = '/logout'
+})
+
 socket.on('mensajes anteriores', render)
 
 socket.on('total conectados', function (total) {
@@ -113,9 +117,13 @@ $('body').on('click', '.action-options', function (e) {
     e.stopPropagation()
     var tweet = $(this).parent().find('.texto p').text()
     var username = $(this).parent().find('.username').text()
+    var date = new Date().getTime();
     actions.init(tweet, username)
 
-    $(this).append('<div class="dropdown-menu" style="display:block;"><ul><li class="retweet">Retweet</li><li class="tweetuser">Tweet a ' + username + '</li><!--<li class="reportuser">Reportar ' + username + ' de spam</li>--></ul></div>').addClass('visible')
+    $(this).append('<div class="dropdown-menu" data-timestamp="' + date + '" style="display:block;"><ul><li class="retweet">Retweet</li><li class="tweetuser">Tweet a ' + username + '</li></ul></div>').addClass('visible')
+    if (window.staff) {
+        window.staff(date, username);
+    };
 })
 
 $('html').on('click', function () {
