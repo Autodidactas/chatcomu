@@ -10,34 +10,34 @@
 
 	"mongodb": {
 		"db": "chatcomu",
-		"host": "localhost",
-		"password": null,
+		"host": "alex.mongohq.com",
+		"password": "06b01a2f05c243f04fe5161bb413cc54",
 		"port": null,
-		"url": "mongodb://localhost/chatcomu",
+		"url": "mongodb://nodejitsu:06b01a2f05c243f04fe5161bb413cc54@alex.mongohq.com:10059/nodejitsudb8719786051",
 		"user": null
 	},
 
 	"redisdb": {
-		"db": "mensajes",
-		"host": "localhost",
-		"password": null,
-		"port": null,
-		"url": "redis://localhost",
+		"db": "chatcom",
+		"host": "nodejitsudb5689538610.redis.irstack.com",
+		"password": "nodejitsudb5689538610.redis.irstack.com:f327cfe980c971946e80b8e975fbebb4",
+		"port": 6379,
+		"url": "redis://nodejitsu:nodejitsudb5689538610.redis.irstack.com:f327cfe980c971946e80b8e975fbebb4@nodejitsudb5689538610.redis.irstack.com:6379",
 		"user": null
 	},
 
 	"twitter": {
-		"consumerKey": "FIbYJ42RC145shhQSLVVw",
-		"consumerSecret": "O1sDgqRxyQr9P5PmjQBkJffLlfWWYgg9frfISoCpWoc",
-		"callbackURL": "http://hosmelquintana.com:8080/auth/twitter/callback",
-		"hashtag": "#Autodidactas",
-		"username": "@username"
-	},
+                "consumerKey": "FIbYJ42RC145shhQSLVVw",
+                "consumerSecret": "O1sDgqRxyQr9P5PmjQBkJffLlfWWYgg9frfISoCpWoc",
+                "callbackURL": "http://autodidactas.chatcomu.jit.su/auth/twitter/callback",
+                "hashtag":  "#Autodidactas" ,
+                "username":  "@username"
+        },
 
-	"facebook": {
-		"clientID": "420963247965924",
-		"clientSecret": "d91f70c196993293e4b9e38594d2443a",
-		"callbackURL": "http://hosmelquintana.com:8080/auth/facebook/callback",
-		"permissions": "status_update"
-	}
+        "facebook": {
+                "clientID": "420963247965924",
+                "clientSecret": "d91f70c196993293e4b9e38594d2443a",
+                "callbackURL": "http://autodidactas.chatcomu.jit.su/auth/facebook/callback",
+                "permissions": "status_update"
+        }
 }

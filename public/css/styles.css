@@ -77,7 +77,7 @@ a:hover{color:#527a97}
 #nav{position:absolute;right:10px;top:6px;}
 #nav button{cursor:pointer;margin:0;margin-left:10px;padding:4px 8px}
 #texto{position:relative}
-#chat_form{margin-top:5px;padding:10px;}
+#chat_form{margin-top:30px;padding:10px;}
 #chat_form input[type=text]{display:block;border-color:#ddd transparent #ddd #ddd;-moz-border-radius:4px;-ms-border-radius:4px;-o-border-radius:4px;-webkit-border-radius:4px;border-radius:4px;border-style:solid;border-width:1px;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box;height:50px;margin:0;padding:4px 90px 30px 4px;width:100%}
 #chat_form #publicar{background-color:#5e5e5e;-moz-border-radius:0 0 0 4px;-ms-border-radius:0 0 0 4px;-o-border-radius:0 0 0 4px;-webkit-border-radius:0 0 0 4px;border-radius:0 0 0 4px;color:#fff;font-size:.8em;padding:3px 10px;position:absolute;bottom:0;left:0;}
 #chat_form #publicar input[type=checkbox]{margin:0;position:relative;top:3px;left:3px}
@@ -88,7 +88,7 @@ a:hover{color:#527a97}
 #mensajes::-webkit-scrollbar-thumb{background-color:#888}
 #mensajes::-webkit-scrollbar-thumb:hover{background-color:#777}
 #mensajes::-webkit-scrollbar-thumb:active{background-color:#555}
-#mensajes{overflow-y:scroll;position:absolute;top:100px;bottom:0;width:100%;}
+#mensajes{overflow-y:scroll;position:absolute;top:130px;bottom:0;width:100%;}
 .gecko #mensajes{top:110px}
 #mensajes li{color:#fff;display:block;padding:10px 0;position:relative;word-wrap:break-word;}
 #mensajes li.mensaje{background-color:#3d4043;border-left:4px solid transparent}

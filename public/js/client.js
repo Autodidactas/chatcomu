@@ -27,7 +27,7 @@ window.userlogin = function (user) {
 
 // login
 
-$('#login button').live('click', function (e) { 
+$('#login button').live('click', function (e) {
     e.preventDefault()
     window.open('/auth/' + $(this).attr('id'))
 })
@@ -48,7 +48,12 @@ $('#btn-sonido').on('click', function () {
     }
 })
 
+
 // enviar mensaje
+$('#limpiar').on('click', function (e) {
+    socket.emit('limpiar')
+    window.location = '/'
+    })
 
 $('#chat_form').on('submit', function (e) {
     e.preventDefault()
@@ -110,6 +115,7 @@ socket.on('total conectados', function (total) {
 socket.on('disconnect', function () {
     window.location.reload()
 })
+
 
 // acciones
 

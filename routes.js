@@ -12,5 +12,13 @@ var login = function (req, res) {
     })
 }
 
+var limpiar = function (req, res) {
+	res.render('limpiar', {
+		title: 'limpiar',
+		user: req.user || ''
+	})
+}
+
 exports.index = index
 exports.login = login
+exports.limpiar = limpiar

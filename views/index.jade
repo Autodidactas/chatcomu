@@ -4,7 +4,9 @@ block content
 
     #content
 
-        p#conectados Usuarios conectados: <strong></strong>
+        - if (user)
+            - if (user.staff)
+                p#conectados Usuarios conectados: <strong></strong>
 
         #sonido
             audio(id='audio')
@@ -13,7 +15,7 @@ block content
         - if (!user)
 
             #login
-                button(title='Conectar con twitter', id='twitter') 
+                button(title='Conectar con twitter', id='twitter')
                     strong twitter
                 button(title='Conectar con facebook', id='facebook')
                     strong facebook

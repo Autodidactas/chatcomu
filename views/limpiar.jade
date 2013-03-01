@@ -1,0 +1,18 @@
+extends layout
+
+block content
+
+    #content
+
+        p#conectados Usuarios conectados: <strong></strong>
+
+    - if (user)
+        - if (user.staff)
+                button#limpiar.button.blue Limpiar
+                script
+                    Modernizr.load({load:'js/staff.js'})
+    - else
+        script
+            window.location='/'
+
+

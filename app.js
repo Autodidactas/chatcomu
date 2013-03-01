@@ -102,6 +102,8 @@
 
   app.get('/', routes.index);
 
+  app.get('/limpiar',routes.limpiar);
+
   app.get('/auth/twitter', passport.authenticate('twitter'));
 
   app.get('/auth/twitter/callback', passport.authenticate('twitter', {
@@ -206,6 +208,7 @@
       conectados--;
       return totalConectados();
     });
+
     client.on('bannear', function(data, staff) {
       return model.user.findOne({
         'username': data
@@ -225,6 +228,13 @@
         }
       });
     });
+
+    client.on('limpiar', function()
+      {
+        redisClient.FLUSHDB();
+        return console.log('Limpiando');
+      }
+      )
     return (totalConectados = function() {
       return io.sockets.emit('total conectados', conectados);
     })();

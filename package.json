@@ -1,24 +1,21 @@
 {
   "name": "chatcomu",
   "description": "Chat de la comunidad informatica.",
-  "version": "0.0.1",
+  "version": "0.0.1-1",
   "private": false,
   "homepage": "",
   "repository": {
     "url": "defaultapp"
   },
-  "author" : {
-    "name" : "Hosmel Quintana",
-    "email" : "hosmelq@gmail.com",
-    "twitter" : "@hosmelQ"
+  "author": {
+    "name": "Hosmel Quintana",
+    "email": "hosmelq@gmail.com",
+    "twitter": "@hosmelQ"
   },
   "engines": {
     "node": "0.8.x"
   },
   "main": "app.js",
-  "scripts": {
-    "start": "node node_modules/coffee-script/bin/cake start"
-  },
   "dependencies": {
     "colors": "*",
     "express": "3.0.0rc2",
@@ -35,5 +32,9 @@
     "passport-twitter": "0.1.4",
     "passport-facebook": "0.1.4",
     "fb": "*"
+  },
+  "subdomain": "autodidactas.chatcomu",
+  "scripts": {
+    "start": "app.js"
   }
 }
