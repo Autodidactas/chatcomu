@@ -15,7 +15,7 @@ Chat de la comunidad informatica.
    npm install
    ```
 
-3. Copiar [config.json.sample](https://github.com/Autodidactas/chatcomu/blob/master/app/config.json.sample) y renombrar a config.json, editar segun configuración.
+3. Copiar [config.json.sample](https://github.com/Autodidactas/chatcomu/blob/master/config.json.sample) y renombrar a config.json, editar segun configuración.
 
 4. Iniciar aplicación
 
